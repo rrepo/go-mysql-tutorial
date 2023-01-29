@@ -1,4 +1,4 @@
-module example/db
+module api-db
 
 go 1.19
 
