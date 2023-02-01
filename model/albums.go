@@ -3,6 +3,7 @@ package model
 import (
 	"database/sql"
 	"fmt"
+	"log"
 )
 
 type Album struct {
@@ -34,7 +35,7 @@ func AllAlbums() (albums []Album, err error) {
 	return albums,nil
 }
 
-func AlbumByID(id int64) (Album, error) {
+func AlbumByID(id int) (Album, error) {
 	// An album to hold data from the returned row.
 	var alb Album
 
@@ -82,4 +83,27 @@ func AddAlbum(alb Album) (int64, error) {
 		return 0, fmt.Errorf("addAlbum: %v", err)
 	}
 	return id, nil
+}
+
+func DeleteAlbum(id int64)(err error){
+	result, err := Db.Exec("DELETE FROM album WHERE id=?;",id)
+	if err != nil {
+		return fmt.Errorf("addAlbum: %v", err)
+	}
+	log.Println(result)
+	return nil
+}
+
+func UpdateAlbum(id int64)(err error){
+	up, err := Db.Prepare("UPDATE album SET title=? WHERE id=?")
+	if err != nil {
+		return fmt.Errorf("addAlbum: %v", err)
+	}
+	
+	result, err := up.Exec("一郎", id)
+	if err != nil {
+		return fmt.Errorf("addAlbum: %v", err)
+	}
+	log.Println(result)
+	return nil
 }
