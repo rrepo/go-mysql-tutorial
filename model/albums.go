@@ -7,10 +7,10 @@ import (
 )
 
 type Album struct {
-	ID     int64
-	Title  string
-	Artist string
-	Price  float32
+	ID     int64  `json:"id"`
+	Title  string `json:"title"`
+	Artist string `json:"artist"`
+	Price  float32 `json:"price"`
 }
 
 func AllAlbums() (albums []Album, err error) {
@@ -85,7 +85,7 @@ func AddAlbum(alb Album) (int64, error) {
 	return id, nil
 }
 
-func DeleteAlbum(id int64)(err error){
+func DeleteAlbum(id int)(err error){
 	result, err := Db.Exec("DELETE FROM album WHERE id=?;",id)
 	if err != nil {
 		return fmt.Errorf("addAlbum: %v", err)
@@ -94,16 +94,18 @@ func DeleteAlbum(id int64)(err error){
 	return nil
 }
 
-func UpdateAlbum(id int64)(err error){
-	up, err := Db.Prepare("UPDATE album SET title=? WHERE id=?")
+func UpdateAlbum(alb Album)(err error){
+	up, err := Db.Prepare("UPDATE album SET title=?, artist=?, price=? WHERE id=?")
+	// up, err := Db.Prepare("UPDATE album SET title=? WHERE id=?")
 	if err != nil {
 		return fmt.Errorf("addAlbum: %v", err)
 	}
 	
-	result, err := up.Exec("一郎", id)
+	result, err := up.Exec(alb.Title, alb.Artist, alb.Price, alb.ID)
 	if err != nil {
 		return fmt.Errorf("addAlbum: %v", err)
 	}
 	log.Println(result)
 	return nil
 }
+

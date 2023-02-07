@@ -3,10 +3,10 @@ package main
 import (
 	"api-db/controllers"
 	"api-db/model"
-	"log"
+	// "log"
 )
 
-type Album struct {  
+type Album struct {
 	ID     int64
 	Title  string
 	Artist string
@@ -16,12 +16,34 @@ type Album struct {
 func main() {
 	model.ConnectDb()
 
-	allAlbum,err := model.AllAlbums()
-	if(err != nil){
-		log.Println("allAlbum",err)
-	}
-	log.Println(allAlbum)
-	
+	// albID, err := model.AddAlbum(model.Album{
+	// 	Title:  "3433221",
+	// 	Artist: "Betty Carter",
+	// 	Price:  49.99,
+	// })
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// log.Printf("ID of added album: %v\n", albID)
+
+	// allAlbum,err := model.AllAlbums()
+	// if(err != nil){
+	// 	log.Println("allAlbum",err)
+	// }
+	// log.Println(allAlbum)
+
+	// UpdateAlbum := model.UpdateAlbum(
+	// 	2,
+	// 	model.Album{
+	// 		Title:  "Test butt",
+	// 		Artist: "Betty buttcheek",
+	// 		Price:  243,
+	// 	})
+	// if UpdateAlbum != nil {
+	// 	log.Println("AlbumByID", UpdateAlbum)
+	// }
+	// log.Println(UpdateAlbum)
+
 	controllers.Server()
 
 	// albumById,err := model.AlbumByID(1)
@@ -36,16 +58,6 @@ func main() {
 	// }
 	// log.Printf("Albums found: %v\n", albumsByArtist)
 
-	// albID, err := model.AddAlbum(model.Album{
-	// 	Title:  "The Modern Sound of Betty Carter",
-	// 	Artist: "Betty Carter",
-	// 	Price:  49.99,
-	// })
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// log.Printf("ID of added album: %v\n", albID)
-
 	// model.DeleteAlbum(14)
 
 	// UpdateAlbum := model.UpdateAlbum(1)
@@ -56,5 +68,5 @@ func main() {
 }
 
 // show databases;
-// SE recordings;
+// USE recordings;
 // SELECT * FROM album;
